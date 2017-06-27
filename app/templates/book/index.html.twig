@@ -1,0 +1,16 @@
+{% extends 'index.html.twig' %}
+<h1>
+    Bookmarks
+</h1>
+{# some comment #}
+{% if bookmarks|length %}
+    <ul>
+        {% for row in bookmarks %}
+            <li>{{ row.title|upper }}, {{ row.url }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div>
+        List is empty!
+    </div>
+{% endif %}
