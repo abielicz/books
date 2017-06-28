@@ -13,50 +13,46 @@ class Books
 {
     protected $books = [
         [
-            'title' => 'PHP manual',
-            'url'   => 'http://php.net',
+            'title' => 'Nostalgia Anioła',
+            'author'=>'Alice Sebold',
             'tags'  => [
-                'PHP',
-                'manual',
+                'dramat',
+                'psychologiczny',
             ],
         ],
         [
-            'title' => 'Silex',
-            'url'   => 'http://silex.sensiolabs.org',
+            'title' => 'Córeczka',
+            'author' => 'Alice Sebold',
             'tags'  => [
-                'PHP',
-                'framework',
-                'Silex',
+                'dramat',
+                'psychologiczny',
+                'tragedia',
             ],
         ],
         [
-            'title' => 'Learn Git Branching',
-            'url'   => 'http://learngitbranching.js.org',
+            'title' => 'Baśniarz',
+            'author'   => 'Antonia Michaelis',
             'tags'  => [
-                'tools',
-                'Git',
-                'VCS',
-                'tutorials',
+                'dramat',
+                'psychologiczny',
+                'kryminał',
             ],
         ],
         [
-            'title' => 'PhpStorm',
-            'url'  => 'https://www.jetbrains.com/phpstorm',
+            'title' => 'Gildia Magów',
+            'author'  => 'Trudi Canavan',
             'tags' => [
-                'tools',
-                'IDE',
-                'PHP',
+                'fantastyka',
+                'dramat',
             ],
         ],
         [
-            'title' => 'Twig',
-            'url'  => 'http://twig.sensiolabs.org',
+            'title' => 'Córka kata',
+            'author'  => 'Oliwier Potzsch',
             'tags' => [
-                'tools',
-                'templates',
-                'Twig',
-                'Silex',
-                'PHP',
+                'fantastyka',
+                'kryminał',
+                'psychologiczny',
             ],
         ],
     ];

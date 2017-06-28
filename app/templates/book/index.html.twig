@@ -5,7 +5,7 @@
 {% if books|length %}
     <ul>
         {% for row in books %}
-            <li>{{ row.title|upper }}, {{ row.url }}</li>
+            <li>{{ row.title|upper }}, {{ row.author }}</li>
         {% endfor %}
     </ul>
 {% else %}
@@ -13,3 +13,4 @@
         List is empty!
     </div>
 {% endif %}
+

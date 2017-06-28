@@ -26,7 +26,10 @@ class BookController implements ControllerProviderInterface
     {
         $controller = $app['controllers_factory'];
         $controller->get('/', [$this, 'indexAction']);
-
+        /*
+        $controller->get('/', [$this, 'indexAction'])->bind('book_index');
+        $controller->get('/{id}', [$this, 'viewAction'])->bind('book_view');
+        */
         return $controller;
     }
 
