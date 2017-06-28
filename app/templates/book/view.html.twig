@@ -1,11 +1,11 @@
 {% extends 'index.html.twig' %}
-<h1>View Bookmark</h1>
-{% if bookmark|length %}
+<h1>View Book</h1>
+{% if book|length %}
     <div>
-        {{ bookmark.title }}, {{ bookmark.url }}
+        {{ book.title }}, {{ book.url }}
     </div>
 {% else %}
     <div>
-        No bookmark found!
+        No book found!
     </div>
 {% endif %}

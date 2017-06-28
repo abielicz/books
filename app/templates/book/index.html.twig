@@ -1,11 +1,11 @@
 {% extends 'index.html.twig' %}
 <h1>
-    Bookmarks
+    Books
 </h1>
 {# some comment #}
-{% if bookmarks|length %}
+{% if books|length %}
     <ul>
-        {% for row in bookmarks %}
+        {% for row in books %}
             <li>{{ row.title|upper }}, {{ row.url }}</li>
         {% endfor %}
     </ul>
