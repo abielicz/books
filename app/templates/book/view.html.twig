@@ -1,5 +1,6 @@
-{% extends 'index.html.twig' %}
-<h1>View Book</h1>
+<h1>
+    {{ 'title.book_view'|trans({'%id%': book.id}) }}
+</h1>
 {% if book|length %}
     <div>
         {{ book.title }}, {{ book.url }}

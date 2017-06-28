@@ -8,7 +8,7 @@
 
 namespace Controller;
 
-use Model\Books\Arr\Books;
+use Model\Books\Arr\Books as Books;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
