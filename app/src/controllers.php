@@ -11,6 +11,10 @@ use Controller\BookController;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
+$app->mount('/hello', new HelloController());
+$app->mount('/book', new BookController());
+//$app->mount('/book/{%id}', new BookController());
+
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })
@@ -33,5 +37,4 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     return new Response($app['twig']->resolveTemplate($templates)->render(array('code' => $code)), $code);
 });
 
-$app->mount('/hello', new HelloController());
-$app->mount('/book', new BookController());
+
