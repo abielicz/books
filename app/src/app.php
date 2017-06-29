@@ -7,6 +7,7 @@ use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\DoctrineServiceProvider;
 
 $app = new Application();
 $app->register(new ServiceControllerServiceProvider());
@@ -30,6 +31,23 @@ $app->register(
     [
         'locale' => 'pl',
         'locale_fallbacks' => array('en'),
+    ]
+);
+$app->register(
+    new DoctrineServiceProvider(),
+    [
+        'db.options' => [
+            'driver'    => 'pdo_mysql',
+            'host'      => 'localhost',
+            'dbname'    => 'test',
+            'user'      => 'root',
+            'password' => '',
+
+            'charset'   => 'utf8',
+            'driverOptions' => [
+                1002 => 'SET NAMES utf8',
+            ],
+        ],
     ]
 );
 $app->extend('translator', function ($translator, $app) {

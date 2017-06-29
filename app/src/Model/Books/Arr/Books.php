@@ -13,6 +13,7 @@ class Books
 {
     protected $books = [
         [
+            'book_id'=>1,
             'title' => 'Nostalgia Anioła',
             'author'=>'Alice Sebold',
             'tags'  => [
@@ -21,15 +22,16 @@ class Books
             ],
         ],
         [
+            'book_id'=>2,
             'title' => 'Córeczka',
             'author' => 'Alice Sebold',
             'tags'  => [
                 'dramat',
                 'psychologiczny',
-                'tragedia',
             ],
         ],
         [
+            'book_id'=>3,
             'title' => 'Baśniarz',
             'author'   => 'Antonia Michaelis',
             'tags'  => [
@@ -39,6 +41,7 @@ class Books
             ],
         ],
         [
+            'book_id'=>4,
             'title' => 'Gildia Magów',
             'author'  => 'Trudi Canavan',
             'tags' => [
@@ -47,6 +50,7 @@ class Books
             ],
         ],
         [
+            'book_id'=>5,
             'title' => 'Córka kata',
             'author'  => 'Oliwier Potzsch',
             'tags' => [

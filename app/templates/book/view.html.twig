@@ -1,11 +1,15 @@
+{% extends "index.html.twig" %}
+{% block title %}
+{%  endblock %}
+{% block content %}
 <h1>
-    {{ 'title.book_view'|trans({'%id%': book.id}) }}
+    {{ 'title.book_view'|trans({'%book_id%': book.book_id}) }}
 </h1>
 
 {% if book|length %}
 <!--
     <h1>
-        Książka numer {{ book.id }}
+        Książka numer {#{ book.id }#}
     </h1>
 -->
     <div>
@@ -16,3 +20,4 @@
         No book found!
     </div>
 {% endif %}
+{%  endblock %}
