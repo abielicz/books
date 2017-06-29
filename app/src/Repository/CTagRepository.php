@@ -35,20 +35,11 @@ class TagRepository
      *
      * @return array Result
      */
-    protected function queryAll()
-    {
-        $queryBuilder = $this->db->createQueryBuilder();
-
-        return $queryBuilder->select('tag_id', 'name')
-            ->from('tags', 't');
-    }
-
-
     public function findAll()
     {
-     //   $query = 'SELECT `tag_id`, `name` FROM `tags`';
-     //   return $this->db->fetchAll($query);
-        $queryBuilder = $this->queryAll();
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder->select('tag_id', 'name')
+            ->from('tags');
 
         return $queryBuilder->execute()->fetchAll();
     }
@@ -62,21 +53,13 @@ class TagRepository
      */
     public function findOneById($id)
     {
-     /*   $query = 'SELECT `tag_id`, `name` FROM `tags` WHERE tag_id= :id';
-        $statement = $this->db->prepare($query);
-        $statement->bindValue('id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-
-        return !$result ? [] : current($result);
-       */
-        $queryBuilder = $this->queryAll();
-        $queryBuilder->where('tag_id = :id')
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder->select('tag_id', 'name')
+            ->from('tags')
+            ->where('tag_id = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
 
         return !$result ? [] : $result;
     }
-
-
 }

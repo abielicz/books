@@ -10,6 +10,14 @@
                 <source>title.book_view</source>
                 <target>Książka #%id%</target>
             </trans-unit>
+            <trans-unit id="tag_list">
+                <source>title.tag_list</source>
+                <target>Lista tagów</target>
+             </trans-unit>
+             <trans-unit id="tag_view">
+                <source>title.tag_view</source>
+                <target> Tag</target>
+             </trans-unit>
         </body>
     </file>
 </xliff>

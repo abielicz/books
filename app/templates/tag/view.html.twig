@@ -1,0 +1,23 @@
+{% extends "index.html.twig" %}
+{% block title %}
+{%  endblock %}
+{% block content %}
+<h1>
+    {{ 'title.tag_view'|trans({'%tag_id%': tag.tag_id}) }}
+</h1>
+
+{% if tag|length %}
+<!--
+    <h1>
+        Książka numer {#{ book.id }#}
+    </h1>
+-->
+    <div>
+        {{ tag.name }}
+    </div>
+{% else %}
+    <div>
+        No book found!
+    </div>
+{% endif %}
+{%  endblock %}
