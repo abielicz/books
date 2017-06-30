@@ -5,6 +5,7 @@
 namespace Repository;
 
 use Doctrine\DBAL\Connection;
+use Utils\Paginator;
 
 /**
  * Class TagRepository.
@@ -13,6 +14,8 @@ use Doctrine\DBAL\Connection;
  */
 class TagRepository
 {
+
+    const NUM_ITEMS = 3;
     /**
      * Doctrine DBAL connection.
      *
@@ -76,6 +79,54 @@ class TagRepository
         $result = $queryBuilder->execute()->fetch();
 
         return !$result ? [] : $result;
+    }
+
+
+    public function findAllPaginated($page = 1)
+    {
+        $countQueryBuilder = $this->queryAll()
+            ->select('COUNT(DISTINCT tag_id) AS total_results')
+            ->setMaxResults(1);
+
+        $paginator = new Paginator($this->queryAll(), $countQueryBuilder);
+        $paginator->setCurrentPage($page);
+        $paginator->setMaxPerPage(self::NUM_ITEMS);
+
+        return $paginator->getCurrentPageResults();
+        /*
+            $queryBuilder = $this->queryAll();
+            $queryBuilder->setFirstResult(($page - 1) * self::NUM_ITEMS)
+                ->setMaxResults(self::NUM_ITEMS);
+
+            $pagesNumber = $this->countAllPages();
+
+            $paginator = [
+                'page' => ($page < 1 || $page > $pagesNumber) ? 1 : $page,
+                'max_results' => self::NUM_ITEMS,
+                'pages_number' => $pagesNumber,
+                'data' => $queryBuilder->execute()->fetchAll(),
+            ];
+         */
+    }
+
+
+    protected function countAllPages()
+    {
+        $pagesNumber = 1;
+
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->select('COUNT(DISTINCT tag_id) AS total_results')
+            ->setMaxResults(1);
+
+        $result = $queryBuilder->execute()->fetch();
+
+        if ($result) {
+            $pagesNumber =  ceil($result['total_results'] / self::NUM_ITEMS);
+        } else {
+            $pagesNumber = 1;
+        }
+
+        return $pagesNumber;
     }
 
 

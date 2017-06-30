@@ -22,6 +22,9 @@ class TagController implements ControllerProviderInterface
     {
         $controller = $app['controllers_factory'];
         $controller->get('/', [$this, 'indexAction'])->bind('tag_index');
+        $controller->get('/page/{page}', [$this, 'indexAction'])
+            ->value('page', 1)
+            ->bind('tag_index_paginated');
         $controller->get('/{id}', [$this, 'viewAction'])->bind('tag_view');
 
         return $controller;
@@ -34,16 +37,15 @@ class TagController implements ControllerProviderInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
-    public function indexAction(Application $app)
+    public function indexAction(Application $app, $page = 1)
     {
         $tagRepository = new TagRepository($app['db']);
 
         return $app['twig']->render(
             'tag/index.html.twig',
-            ['tags' => $tagRepository->findAll()]
+            ['paginator' => $tagRepository->findAllPaginated($page)]
         );
     }
-
     /**
      * View action.
      *

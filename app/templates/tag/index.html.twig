@@ -1,25 +1,29 @@
 {% block title %}
 {%  endblock %}
 {%  block content %}
-<h1>
-    {#{{  'title.tags_list'|trans }} #}
-    Tagi
-</h1>
-
-{# some comment #}
-{% block body %}
+    {% include 'default/_paginator.html.twig' with {
+    paginator: paginator,
+    route_name: 'tag_index_paginated',
+    } %}
     <h1>
-        {{ 'title.tag_list'|trans }}
+        {#{{  'title.tags_list'|trans }} #}
+        Tagi
     </h1>
-    {% if tags |length %}
-        {% for row in tags %}
-            <li> {{ row.tag_id }}.{{ row.name }}</li>
-        {%  endfor %}
-    {% else %}
-        <div>
-            No tag found!
-        </div>
-    {% endif %}
-{%  endblock %}
+
+    {# some comment #}
+    {% block body %}
+        <h1>
+            {{ 'title.tag_list'|trans }}
+        </h1>
+        {% if paginator.data |length %}
+            {% for row in paginator.data %}
+                <li> {{ row.tag_id }}.{{ row.name }}</li>
+            {%  endfor %}
+        {% else %}
+            <div>
+                No tag found!
+            </div>
+        {% endif %}
+    {%  endblock %}
 
 {%  endblock %}
