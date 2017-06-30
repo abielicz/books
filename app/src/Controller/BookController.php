@@ -8,10 +8,11 @@
 
 namespace Controller;
 
-use Model\Books\Arr\Books as Books;
+//use Model\Books\Arr\Books as Books;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Repository\BookRepository;
 
 class BookController implements ControllerProviderInterface
 {
@@ -25,9 +26,11 @@ class BookController implements ControllerProviderInterface
     public function connect(Application $app)
     {
         $controller = $app['controllers_factory'];
-        $controller->get('/', [$this, 'indexAction']);
         $controller->get('/', [$this, 'indexAction'])->bind('book_index');
-        $controller->get('/{tag_id}', [$this, 'viewAction'])->bind('book_view');
+        $controller->get('/page/{page}', [$this, 'indexAction'])
+            ->value('page', 1)
+            ->bind('book_index_paginated');
+        $controller->get('/{id}', [$this, 'viewAction'])->bind('book_view');
 
         return $controller;
     }
@@ -39,22 +42,23 @@ class BookController implements ControllerProviderInterface
      *
      * @return string Response
      */
-    public function indexAction(Application $app)
+    public function indexAction(Application $app, $page = 1)
     {
-        $bookModel = new Books();
+        $bookRepository = new BookRepository($app['db']);
 
         return $app['twig']->render(
             'book/index.html.twig',
-            ['books' => $bookModel->findAll()]
+            ['paginator' => $bookRepository->findAllPaginated($page)]
         );
     }
 
-    public function viewAction(Application $app, $tag_id)
+    public function viewAction(Application $app, $id)
     {
-        $booksModel = new Books();
+        $bookRepository = new BookRepository($app['db']);
+
         return $app['twig']->render(
             'book/view.html.twig',
-            ['book' => $booksModel->findOneById($tag_id)]
+            ['book' => $bookRepository->findOneById($id)]
         );
     }
 }

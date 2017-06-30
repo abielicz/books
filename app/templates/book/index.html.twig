@@ -2,6 +2,10 @@
 {% block title %}
 {% endblock %}
 {%  block content %}
+    {% include 'default/_paginator.html.twig' with {
+    paginator: paginator,
+    route_name: 'book_index_paginated',
+    } %}
 <h1>
     {{ 'title.books_list'|trans }}
 </h1>
@@ -11,10 +15,10 @@
 </h1>
 -->
 {# some comment #}
-{% if books|length %}
+{% if paginator.data |length %}
     <ul>
-        {% for row in books %}
-            <li>{{ row.title|upper }}, {{ row.author }}</li>
+        {% for row in paginator.data %}
+            <li>{{ row.book_id }}.{{ row.title|upper }}- {{ row.author }}</li>
         {% endfor %}
     </ul>
 {% else %}
