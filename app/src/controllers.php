@@ -8,14 +8,17 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Controller\HelloController;
 use Controller\BookController;
 use Controller\TagController;
+use Controller\CommentController;
+//use Controller\AuthController;
 
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
 $app->mount('/hello', new HelloController());
-$app->mount('/book', new BookController());
+$app->mount('/book', new BookController(), new CommentController());
 $app->mount('/tag', new TagController());
-//$app->mount('/book/{%id}', new BookController());
+$app->mount('/comment', new CommentController());
+//$app->mount('/auth', new AuthController());
 
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());

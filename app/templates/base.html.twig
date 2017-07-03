@@ -1,0 +1,38 @@
+{%  extends 'index.html.twig' %}
+
+{#
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="btn-group pull-right" role="group" aria-label="{{ 'label.actions'|trans }}">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="btn btn-default" href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+                        {{ 'auth.logout.label'|trans }}
+                    </a>
+                {% else %}
+                    <a class="btn btn-default" href="{{ url('auth_login') }}" title="{{ 'auth.login.label'|trans }}">
+                        {{ 'auth.login.label'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% include 'default/_flash_messages.html.twig' %}
+#}
+{#
+               {% if is_granted('ROLE_ADMIN') %}
+<li><a href="{{ url('admin_index') }}">Admin</a>
+    {% endif %}
+
+</li>
+<li>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="btn btn-default" href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+            {{ 'auth.logout.label'|trans }}
+        </a>
+    {% endif %}
+</li>
+#}
+    {% block body %}
+    {% endblock %}
+{% block footer %} {%  endblock %}
+{% block javascripts %}{% endblock %}

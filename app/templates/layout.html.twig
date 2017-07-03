@@ -1,24 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% block title %}
-        <title>- My Silex Application</title>
-        {% endblock %}
-        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all,follow">
+    <meta name="googlebot" content="pictures, sharing">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="pictures, sharing">
+    <title>Dziel się swoimi ulubionymi książkami.</title>
+    {% block title %}{% endblock %}
+    {% block stylesheets %}
+        <!-- Bootstrap CSS-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Font Awesome & Pixeden Icon Stroke icon font-->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
+        <!-- Google fonts - Roboto Condensed & Roboto-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto:300,400">
+        <!-- lightbox-->
+        <link rel="stylesheet" href="css/lightbox.min.css">
+        <!-- theme stylesheet-->
+        <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+        <!-- Custom stylesheet - for your changes-->
+        <link rel="stylesheet" href="css/custom.css">
+        <!-- Favicon-->
+        <link rel="shortcut icon" href="favicon.png">
 
-        <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-            _gaq.push(['_trackPageview']);
+        <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+                                    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                                    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    {% endblock %}
 
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-    </head>
-    <body>
-        {% block content %}{% endblock %}
-    </body>
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body>
+{#
+{% block header %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ url('admin_index') }}">Admin</a>
+    {% endif %}
+
+    </li>
+    <li>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a class="btn btn-default" href="{{ url('auth_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+                {{ 'auth.logout.label'|trans }}
+            </a>
+        {% endif %}
+    </li>
+    {% include 'default/_flash_messages.html.twig' %}
+{% endblock %}
+{% include 'default/_flash_messages.html.twig' %}
+#}
+{% block body %}{% endblock %}
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.cookie.js"> </script>
+    <script src="js/lightbox.min.js"></script>
+    <script src="js/front.js"></script>
+{% endblock %}
+</body>
 </html>

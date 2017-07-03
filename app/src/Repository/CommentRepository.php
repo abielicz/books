@@ -8,11 +8,11 @@ use Doctrine\DBAL\Connection;
 use Utils\Paginator;
 
 /**
- * Class TagRepository.
+ * Class CommentRepository.
  *
  * @package Repository
  */
-class TagRepository
+class CommentRepository
 {
 
     const NUM_ITEMS = 3;
@@ -42,8 +42,8 @@ class TagRepository
     {
         $queryBuilder = $this->db->createQueryBuilder();
 
-        return $queryBuilder->select('tag_id', 'name')
-            ->from('tags');
+        return $queryBuilder->select('comment_id', 'book_id', 'user_id')
+            ->from('comments');
     }
 
 
@@ -74,7 +74,7 @@ class TagRepository
         return !$result ? [] : current($result);
        */
         $queryBuilder = $this->queryAll();
-        $queryBuilder->where('tag_id = :id')
+        $queryBuilder->where('comment_id = :id')
             ->setParameter(':id', $id, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetch();
 
@@ -85,7 +85,7 @@ class TagRepository
     public function findAllPaginated($page = 1)
     {
         $countQueryBuilder = $this->queryAll()
-            ->select('COUNT(DISTINCT tag_id) AS total_results')
+            ->select('COUNT(DISTINCT comment_id) AS total_results')
             ->setMaxResults(1);
 
         $paginator = new Paginator($this->queryAll(), $countQueryBuilder);
@@ -115,7 +115,7 @@ class TagRepository
         $pagesNumber = 1;
 
         $queryBuilder = $this->queryAll();
-        $queryBuilder->select('COUNT(DISTINCT tag_id) AS total_results')
+        $queryBuilder->select('COUNT(DISTINCT comment_id) AS total_results')
             ->setMaxResults(1);
 
         $result = $queryBuilder->execute()->fetch();
@@ -133,43 +133,23 @@ class TagRepository
     /**
      * Save record.
      *
-     * @param array $tag Tag
+     * @param array $comment Tag
      *
      * @return boolean Result
      */
-    public function save($tag)
+    public function save($comment)
     {
-        if (isset($tag['tag_id']) && ctype_digit((string) $tag['tag_id'])) {
+        if (isset($comment['comment_id']) && ctype_digit((string) $comment['comment_id'])) {
             // update record
-            $id = $tag['tag_id'];
-            unset($tag['tag_id']);
+            $id = $comment['comment_id'];
+            unset($comment['comment_id']);
 
-            return $this->db->update('tags', $tag, ['tag_id' => $id]);
+            return $this->db->update('comments', $comment, ['comments_id' => $id]);
         } else {
             // add new record
-            return $this->db->insert('tags', $tag);
+            return $this->db->insert('comments', $comment);
         }
     }
 
-    /**
-     * Find for uniqueness.
-     *
-     * @param string          $name Element name
-     * @param int|string|null $id   Element id
-     *
-     * @return array Result
-     */
-    public function findForUniqueness($name, $id = null)
-    {
-        $queryBuilder = $this->queryAll();
-        $queryBuilder->where('tags.name = :name')
-            ->setParameter(':name', $name, \PDO::PARAM_STR);
-        if ($id) {
-            $queryBuilder->andWhere('tag.tag_id <> :id')
-                ->setParameter(':id', $id, \PDO::PARAM_INT);
-        }
-
-        return $queryBuilder->execute()->fetchAll();
-    }
 
 }

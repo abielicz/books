@@ -1,23 +1,30 @@
 {% extends "index.html.twig" %}
 {% block title %}
 {%  endblock %}
-{% block content %}
+{% block body %}
 <h1>
     {{ 'title.book_view'|trans({'%book_id%': book.book_id}) }}
 </h1>
 
 {% if book|length %}
-<!--
-    <h1>
-        Książka numer {#{ book.id }#}
-    </h1>
--->
     <div>
         {{ book.book_id}}. {{ book.title }}- {{ book.author }}
     </div>
+
+    {%  if comment| length %}
+        {% for row in comment %}
+            <li> {{ row.login }} {{ row.matter }}</li>
+        {% endfor %}
+    {% else %}
+        <div>
+            Brak komentarzy do wyświetlenia!
+        </div>
+    {% endif %}
+
 {% else %}
     <div>
         No book found!
     </div>
 {% endif %}
 {%  endblock %}
+{% block footer %} {%  endblock %}

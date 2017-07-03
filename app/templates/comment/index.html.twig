@@ -4,20 +4,20 @@
 {%  block body %}
     {% include 'default/_paginator.html.twig' with {
     paginator: paginator,
-    route_name: 'tag_index_paginated',
+    route_name: 'comment_index_paginated',
     } %}
     <h1>
         {#{{  'title.tags_list'|trans }} #}
-        Tagi
+        Komentarz
     </h1>
 
     {# some comment #}
         <h1>
-            {{ 'title.tag_list'|trans }}
+            {{ 'title.comment_list'|trans }}
         </h1>
         {% if paginator.data |length %}
             {% for row in paginator.data %}
-                <li> {{ row.tag_id }}.{{ row.name }}</li>
+                <li> {{ row.comment_id }}.{{ row.book_id }}</li>
             {%  endfor %}
         {% else %}
             <div>
