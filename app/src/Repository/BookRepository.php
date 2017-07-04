@@ -86,7 +86,6 @@ class BookRepository
 
         $result = $queryBuilder->execute()->fetchAll();
 
-        dump( $result);
         return $result;
     }
 /*
@@ -179,7 +178,7 @@ class BookRepository
             ->where('book_id = :book_id')
             ->setParameter(':book_id', $bookId, \PDO::PARAM_INT);
         $result = $queryBuilder->execute()->fetchAll();
-
+        dump($result);
         return isset($result) ? array_column($result, 'tag_id') : [];
     }
     /**

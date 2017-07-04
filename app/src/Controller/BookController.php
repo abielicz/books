@@ -37,7 +37,15 @@ class BookController implements ControllerProviderInterface
             ->method('POST|GET')
             ->bind('book_add');
         $controller->get('/{id}', [$this, 'viewAction'])->bind('book_view');
-  //      $controller->get('/{id}', [$this, 'viewActionC'])->bind('book_view');
+        $controller->match('/{id}/edit', [$this, 'editAction'])
+            ->method('GET|POST')
+            ->assert('id', '[1-9]\d*')
+            ->bind('book_edit');
+        $controller->match('/{id}/delete', [$this, 'deleteAction'])
+            ->method('GET|POST')
+            ->assert('id', '[1-9]\d*')
+            ->bind('book_delete');
+  //      $controller->get('book/delete/{id}', [$this, 'viewActionC'])->bind('book_view');
 
 
 
@@ -92,26 +100,33 @@ class BookController implements ControllerProviderInterface
         );
     }
 */
+
     public function addAction(Application $app, Request $request)
-    {
-        $book = [];
+    {   $book = [];
 
         $form = $app['form.factory']->createBuilder(
             BookType::class,
             $book,
             ['tag_repository' => new TagRepository($app['db'])]
         )->getForm();
+        dump($form);
+        dump($book);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bookRepository = new BookRepository($app['db']);
             $bookRepository->save($form->getData());
+            $app['session']->getFlashBag()->add(
+                'messages',
+                [
+                    'type' => 'success',
+                    'message' => 'message.element_successfully_added',
+                ]
+            );
 
             return $app->redirect($app['url_generator']->generate('book_index'), 301);
         }
-
-
 
         return $app['twig']->render(
             'book/add.html.twig',
@@ -121,6 +136,7 @@ class BookController implements ControllerProviderInterface
             ]
         );
     }
+
 /*
     public function deleteAction(Application $app, $id, Request $request)
     {

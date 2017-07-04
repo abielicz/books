@@ -3,7 +3,8 @@
 {%  endblock %}
 {% block body %}
 <h1>
-    {{ 'title.book_view'|trans({'%book_id%': book.book_id}) }}
+    {{ 'title.book_view'|trans }} {{ book.book_id }}
+    {# ({'%book_id%': book.book_id}) #}
 </h1>
 
 {% if book|length %}

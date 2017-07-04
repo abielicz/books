@@ -8,7 +8,7 @@
             </trans-unit>
             <trans-unit id="title.book_view">
                 <source>title.book_view</source>
-                <target>Książka #%id%</target>
+                <target>Książka </target>
             </trans-unit>
             <trans-unit id="title.tag_list">
                 <source>title.tag_list</source>
