@@ -36,11 +36,11 @@ class TagController implements ControllerProviderInterface
         $controller->match('/{id}/edit', [$this, 'editAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
-            ->bind('product_edit');
+            ->bind('tag_edit');
         $controller->match('/{id}/delete', [$this, 'deleteAction'])
             ->method('GET|POST')
             ->assert('id', '[1-9]\d*')
-            ->bind('product_delete');
+            ->bind('tag_delete');
 
         return $controller;
     }

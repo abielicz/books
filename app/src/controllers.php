@@ -12,9 +12,6 @@ use Controller\CommentController;
 //use Controller\AuthController;
 
 
-//Request::setTrustedProxies(array('127.0.0.1'));
-
-$app->mount('/hello', new HelloController());
 $app->mount('/book', new BookController(), new CommentController());
 $app->mount('/tag', new TagController());
 $app->mount('/comment', new CommentController());

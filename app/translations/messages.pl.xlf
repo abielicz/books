@@ -18,6 +18,18 @@
                 <source>title.tag_view</source>
                 <target> Tag</target>
              </trans-unit>
+            <trans-unit id="action.add">
+                 <source>title.tag_edit</source>
+                 <target>Edycja tagu</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                 <source>action.save</source>
+                 <target>Zatwierdź</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                 <source>label.name</source>
+                 <target>Nazwa</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
